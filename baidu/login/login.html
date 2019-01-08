@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>百度一下，你就知道</title>
+		<style type="text/css">
+			*{
+				margin: 0;
+				padding: 0;
+				text-decoration:none;
+			}
+			a{
+				color:deepskyblue;
+			}
+			body{
+				width: 100%;
+				height:100%;
+			}
+			#login{
+				width:300px;
+				height:380px;
+				background:#fff;
+				position: fixed;
+				top: 50%;
+				left:50%;
+				margin-left:-200px;
+				margin-top:-190px;
+				text-align: center;
+				display: none;
+				user-select:none;    
+			}
+			#mask{
+				width:100%;
+				height: 100%;
+				background:rgba(0,0,0,.2);
+				position: fixed;
+				top:0;
+				display: none;
+			}
+			.gb{
+				width:20px;
+				height: 30px;
+				color: #ccc;
+				font-size:25px;
+				position: absolute;
+				right:5px;
+				top:0;
+				cursor: pointer;
+			}
+			.top{
+				height:70px;
+				text-align: center;
+				line-height:70px;
+				cursor: pointer;
+				user-select:none;    
+			}
+			.zdlog{
+				line-height:30px;
+				font-size:10px;
+				float: left;
+				margin-left:22px;
+			}
+			.btn{
+				height:40px;
+				width:250px;
+				background:deepskyblue;
+				border: 0;
+				color: #fff;
+				font-size:18px;
+				border-radius:5px;
+			}
+			.reg{
+				height:30px;
+				font-size:10px;
+				margin-bottom:32px;
+			}
+			.wj{
+				float: left;
+				margin-left:22px;
+				line-height:30px;
+			}
+			.dx{
+				float: right;
+				margin-right:22px;
+				line-height:30px;
+			}
+			.buttom{
+				height:60px;
+				line-height:60px;
+				background:aliceblue;
+				font-size:14px;
+			}
+			.buttom>p{
+				display: flex;
+				justify-content:space-around;
+			}
+			.nav{
+				height:20px;
+				justify-content:20px;
+				margin-top:20px;
+				margin-right:100px;
+				float: right;
+			}
+		</style>
+	</head>
+<body>
+	<div class="nav">
+		<a href="#" id="dl">登录</a>
+		<a href="http://news.baidu.com/">新闻</a>
+		<a href="#">事业</a>
+		<a href="http://v.baidu.com/">视频</a>
+		<a href="#">设置</a>
+	</div>
+	<div id="mask">
+		<div id="login">
+			<span id="gb" class="gb">x</span>
+			<p class="top" id="header">百度用户名密码登录</p>
+			<form action="login.php" method="get">
+			<p><input type="text" name="name" placeholder="手机/邮箱/用户名" style="height: 40px;width: 250px;margin-top:20px"/></p>
+			<p><input type="password" name="pwd" placeholder="密码"style="height: 40px;width: 250px;margin-top:20px"/></p>
+			<p class="zdlog"><input type="checkbox"  checked="true"/>下次自动登录</p>
+			<p ><input type="submit" value="登录" id="btn" class="btn"/></p>
+			</form>
+			<p class="reg"><a href="#" class="wj">忘记密码？</a><a href="#" class="dx">短信快捷登录</a></p>
+			<div class="buttom">
+			<p><a href="#">扫码登录|QQ|微博</a> <a href="../register/register.html">立即注册</a></p>
+			</div>
+		</div>
+	</div>
+<script src="../../public.js" ></script>
+<script type="text/javascript">
+	var dl=$id("dl");
+	var login=$id("login");
+	var mask=$id("mask");
+	var gb=$id("gb");
+	var header=$id("header");
+	
+	
+	//点击关闭
+	gb.onclick=function(){
+		login.style.display="none";
+		mask.style.display="none";
+		return false;
+	}
+	dl.onclick=function(){
+		login.style.display="block";
+		mask.style.display="block";
+	}
+	
+	//实现登录框拖动
+	
+	header.onmousedown=function(e){
+		var e=e || event;
+		var x=e.pageX-login.offsetLeft;
+		var y=e.pageY-login.offsetTop;
+		window.getSelection().removeAllRanges();
+		
+		document.onmousemove=function(e){
+			var e=e || event;
+			var l=e.pageX-x;
+			var t=e.pageY-y;
+			
+			//边界处理
+			var maxL=document.body.offsetWidth-login.offsetWidth;
+			var maxT=document.body.offsetHeight+login.offsetHeight;
+			
+			console.log(maxL,maxT)
+			if(l<0){
+				l=0;
+			}else if(l>maxL){
+				l=maxL;
+			}
+			if(t<0){
+				t=0;
+			}else if(t>maxT){
+				t=maxT;
+			}
+			login.style.left=l+200+"px";
+			login.style.top=t+190+"px";
+			//console.log(l,t)
+		}
+		
+		document.onmouseup=function(){
+			document.onmousemove=null;	
+		}
+	
+	
+	}
+	
+	
+</script>
+		
+	</body>
+</html>

@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>注册百度账号</title>
+		<style type="text/css">
+			*{
+				margin: 0;
+				padding: 0;
+				user-select:none;
+				
+			}
+			#header{
+				height:100px;
+				width:100%;
+				border-bottom: 1px solid #ccc;
+				box-shadow:0px 2px 10px #ccc;
+			}
+			.left>p,.right>p{
+				line-height:100px;
+			}
+			.left{
+				margin-left:150px;
+				float: left;
+				line-height:100px;
+			}
+			.right{
+				margin-right:150px;
+				float: right;
+				line-height:100px;
+			}
+			.reg{
+				font-size:10px;
+			}
+			#btn{
+				margin-left:10px;
+				width:60px;
+				height:30px;
+				background:whitesmoke;
+				border: 0;
+				outline: none;
+				cursor: pointer;
+			}
+			.form{
+				margin-left:150px;
+				margin-top:60px;
+			}
+			input{
+				height:40px;
+			}
+			#user,#phone,#pwd{
+				width:450px;
+				margin-bottom:45px;
+				background:#fff;
+			}
+			p{
+				line-height:50px;
+			}
+			#dx{
+				width:230px;
+				height:40px;
+				cursor: pointer;
+			}
+			#yzm{
+				width: 220px;
+				height:40px;
+				
+			}
+			#ck{
+				height:10px;
+				margin-left:60px;
+			}
+			#sub{
+				width:400px;
+				height: 40px;
+				background:deepskyblue;
+				margin-top:30px;
+				border: 0;
+				margin-left:60px;
+				border-radius: 5px;
+				cursor: pointer;
+			}
+			#show{
+				color: green;
+				display: none;
+				position: absolute;
+				top:0;
+				left:530px;
+			}
+			#hide{
+				color: red;
+				display: none;
+				position: absolute;
+				top:0;
+				left:530px;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="header">
+			<div class="left">
+				<p>注册百度账号</p>
+			</div>
+			<div class="right">
+				<p class="reg">我已注册，现在就<input type="submit" value="登录" id="btn"/></p>
+			</div>
+		</div>
+			<div id="main" class="form">
+		<form action="register.php" method="get">
+				<p style="position: relative;">用户名：<input type="text" placeholder="请输入用户名" name="name" id="user" class="user"/><span id="show">
+					可用
+				</span><span id="hide">不可用</span></p>
+				<p>手机号：<input type="text" placeholder="可用于登录和找回密码" name="phone" id="phone"/></p>
+				<p>密&nbsp;&nbsp;&nbsp; 码：<input type="password" placeholder="请设置登录密码" name="pwd" id="pwd"/></p>
+				<p>验证码：<input type="text" placeholder="请输入验证码" name="yzm" id="yzm"/>
+					<input type="submit" value="获取短信验证码" id="dx"/>
+				</p>
+				<p style="font-size: 10px; height: 20px;"><input type="checkbox" checkbox="true" id="ck"/>阅读并接受《百度用户协议》及《百度隐私权保护声明》</p>
+				<p><input type="submit" value="注册" id="sub"/></p>
+		</form>
+			</div>
+	</body>
+</html>
+<script src="../../public.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../ajax完整封装.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+	var btn=document.getElementById("btn");
+	btn.onclick=function(){
+		location.href="../login/login.html";
+	}
+	var form=document.getElementsByTagName("form");
+	var user=document.getElementById("user");
+	var flag=false;
+		user.onchange=function(){
+			ajax({
+				method:"get",
+				url:"checkUserName.php",
+				data:{
+					name:this.value
+				},
+				success:function(res){
+					console.log(res)
+					if(res == 1){
+						$id("show").style.display="none";
+						$id("hide").style.display="block";
+					}else if(res == 2){
+						$id("hide").style.display="none";
+						$id("show").style.display="block";
+					}
+				}
+			});
+		}
+		form.onsubmit=function(){
+			if(flag){
+				return true;
+			}else{
+				return false;
+			}
+		}
+	
+		
+</script>
